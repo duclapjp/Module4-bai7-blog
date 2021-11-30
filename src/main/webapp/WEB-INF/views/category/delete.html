@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>Title</title>
 <body>
-<h1>Delete province</h1>
+<h1>Delete Category</h1>
 <h2>Are you sure?</h2>
 <th:block th:if="${message}">
     <p th:text="${message}"></p>
 </th:block>
 <p>
-    <a href="/province/view">Province list</a>
+    <a href="/category/view">Category list</a>
 </p>
 <form th:action="@{/category/remove}" th:object="${category}" method="post">
     <input th:type="hidden" name="id" th:field="*{id}">
@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" value="Delete province"></td>
+            <td><input type="submit" value="Delete Category"></td>
         </tr>
     </table>
 </form>

@@ -52,4 +52,11 @@ public class CategoryController {
         modelAndView.addObject("category",categoryService.findById(id).get());
         return modelAndView;
     }
+    @PostMapping("/remove")
+    public  ModelAndView remove(@RequestParam Long id){
+        ModelAndView modelAndView = new ModelAndView("category/delete");
+        categoryService.remove(id);
+        modelAndView.addObject("message","xoa thanh cong");
+        return modelAndView;
+    }
 }
