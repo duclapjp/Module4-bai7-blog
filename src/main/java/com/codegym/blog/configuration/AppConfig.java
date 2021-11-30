@@ -1,9 +1,6 @@
 package com.codegym.blog.configuration;
 
-import com.codegym.blog.repository.BlogRepository;
-import com.codegym.blog.repository.IBlogRepository;
-import com.codegym.blog.service.BlogService;
-import com.codegym.blog.service.IBlogService;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -11,6 +8,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -33,7 +32,9 @@ import java.util.Properties;
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan("com.codegym.blog.controller")
+@EnableJpaRepositories("com.codegym.blog.repository")
+@ComponentScan("com.codegym.blog")
+@EnableSpringDataWebSupport
 public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -113,13 +114,6 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         return properties;
     }
 
-    @Bean
-    public IBlogRepository customerRepository() {
-        return new BlogRepository();
-    }
 
-    @Bean
-    public IBlogService blogService() {
-        return new BlogService();
-    }
+
 }

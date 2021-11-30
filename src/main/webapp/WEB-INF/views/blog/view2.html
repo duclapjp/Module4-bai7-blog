@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/blog/layout::head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+<body>
+<div>
+    <p th:text="${blog.title}"></p><br>
+    <p th:text="${blog.author}"></p><br>
+    <p th:text="${blog.content}"></p><br>
+</div>
+<footer th:insert="/blog/layout::footer">
+    <p th:text="${blog.time}"></p>
+</footer>
+</body>
+</html>

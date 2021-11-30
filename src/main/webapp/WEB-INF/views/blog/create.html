@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/blog/layout::head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+<body>
+<p>
+    <a href="/blog/view">Blog list</a>
+</p>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<form th:action="@{/blog/save}" th:object="${blog}" method="post">
+
+    <p>Title:</p>
+    <p><input type="text" th:field="*{title}"/></p>
+    <p>Author:</p>
+    <p><input type="text" th:field="*{author}"></p>
+    <p>Content:</p>
+    <p><textarea th:field="*{content}" id="" cols="70" rows="30"></textarea></p>
+    <p>Time:</p>
+    <p><input type="text" th:field="*{time}"></p>
+    <td><input type="submit" value="Đăng Bài"></td>
+</form>
+<footer th:insert="/blog/layout::footer">
+</footer>
+</body>
+</html>

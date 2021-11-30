@@ -12,7 +12,9 @@ public class Blog {
     private String content;
     private String author;
     private String time;
-
+    @ManyToOne
+    @JoinColumn(name="category_id")
+    private Category category;
     public Blog() {
     }
 
@@ -29,6 +31,22 @@ public class Blog {
         this.content = content;
         this.author = author;
         this.time = time;
+    }
+
+    public Blog(String title, String content, String author, String time, Category category) {
+        this.title = title;
+        this.content = content;
+        this.author = author;
+        this.time = time;
+        this.category = category;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Long getId() {
