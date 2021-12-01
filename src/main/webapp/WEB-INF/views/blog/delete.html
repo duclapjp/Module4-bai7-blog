@@ -5,6 +5,40 @@
     <title>Title</title>
 <body>
 
+<h1>Delete Blog</h1>
+<h2>Are you sure?</h2>
+<p>
+    <a href="/blog/view">Trang chủ</a>
+</p>
+<form th:action="@{/blog/remove}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Title:</td>
+            <td th:text="${blog.title}"></td>
+        </tr>
+        <tr>
+            <td>Author:</td>
+            <td th:text="${blog.author}"></td>
+        </tr>
+        <tr>
+            <td>Category:</td>
+            <td th:text="${blog.category.name}"></td>
+        </tr>
+        <tr>
+            <td>Content:</td>
+            <td th:text="${blog.content}"></td>
+        </tr>
+        <tr>
+            <td>Time:</td>
+            <td th:text="${blog.time}"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Delete Blog"></td>
+            <td><a th:href="@{/blog/view}">Cancel</a></td>
+        </tr>
+    </table>
+</form>
 <footer th:insert="/blog/layout::footer">
 </footer>
 </body>

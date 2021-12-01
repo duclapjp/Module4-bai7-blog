@@ -4,13 +4,38 @@
     <meta charset="UTF-8">
     <title>Title</title>
 <body>
-<div>
-    <p th:text="${blog.title}"></p><br>
-    <p th:text="${blog.author}"></p><br>
-    <p th:text="${blog.content}"></p><br>
-</div>
+<p>
+    <a href="/blog/view">Trang chủ</a>
+</p>
+<form>
+    <div>
+        <div>
+            <p>Title:</p>
+            <p th:text="${blog.title}"></p><br>
+        </div>
+        <div>
+            <p>Category:</p>
+            <p th:text="${blog.category.name}"></p><br>
+        </div>
+       <div>
+           <p>Author:</p>
+           <p th:text="${blog.author}"></p><br><br>
+       </div>
+       <div>
+           <p>Content:</p>
+           <p th:text="${blog.content}"></p><br>
+       </div>
+    </div>
+    <tr>
+        <td>
+            <a th:href="@{/blog/edit/__${blog.id}__}">Edit</a>
+        </td>
+        <td>
+            <a th:href="@{/blog/delete/__${blog.id}__}">Delete</a>
+        </td>
+</form>
+
 <footer th:insert="/blog/layout::footer">
-    <p th:text="${blog.time}"></p>
 </footer>
 </body>
 </html>

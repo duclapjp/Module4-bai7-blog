@@ -5,7 +5,7 @@
     <title>Title</title>
 <body>
 <p>
-    <a href="/blog/view">Blog list</a>
+    <a href="/blog/view">Trang chủ</a>
 </p>
 <th:block th:if="${message}">
     <p th:text="${message}"></p>
@@ -14,12 +14,21 @@
 
     <p>Title:</p>
     <p><input type="text" th:field="*{title}"/></p>
+    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Name Error</p>
     <p>Author:</p>
     <p><input type="text" th:field="*{author}"></p>
+    <p th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Name Error</p>
     <p>Content:</p>
     <p><textarea th:field="*{content}" id="" cols="70" rows="30"></textarea></p>
+    <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Name Error</p>
     <p>Time:</p>
     <p><input type="text" th:field="*{time}"></p>
+    <td>Category:</td>
+    <td>
+        <select th:field="*{category}">
+            <option th:each="p : ${categories}" th:value="${p.id}" th:text="${p.name}"></option>
+        </select>
+    </td>
     <td><input type="submit" value="Đăng Bài"></td>
 </form>
 <footer th:insert="/blog/layout::footer">

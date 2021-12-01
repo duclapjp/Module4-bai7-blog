@@ -1,6 +1,7 @@
 package com.codegym.blog.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="blog")
@@ -8,8 +9,11 @@ public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty(message = "tieu de khong duoc bo trong")
     private String title;
+    @NotEmpty(message = "noi dung khong duoc bo trong")
     private String content;
+    @NotEmpty(message = "tac gia khong duoc bo trong")
     private String author;
     private String time;
     @ManyToOne
@@ -18,7 +22,7 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(String title, String content, String author, String time) {
+    public Blog(@NotEmpty String title,@NotEmpty String content,@NotEmpty String author, String time) {
         this.title = title;
         this.content = content;
         this.author = author;
@@ -33,7 +37,7 @@ public class Blog {
         this.time = time;
     }
 
-    public Blog(String title, String content, String author, String time, Category category) {
+    public Blog(@NotEmpty String title,@NotEmpty String content, String author, String time, Category category) {
         this.title = title;
         this.content = content;
         this.author = author;
