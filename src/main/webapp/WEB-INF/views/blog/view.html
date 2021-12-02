@@ -45,6 +45,7 @@
                         <a th:text="${blog.title}" th:href="@{/blog/__${blog.id}__/view2}"></a>
                     </li>
                 </ul>
+
             </div>
             <div th:if="${se}">
                 <a th:href="@{blog?page=__${blogs.number - 1}__&search=__${se}__}" th:if="${blogs.hasPrevious()}">Previous</a>

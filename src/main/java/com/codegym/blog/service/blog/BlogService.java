@@ -1,5 +1,6 @@
 package com.codegym.blog.service.blog;
 
+import com.codegym.blog.exception.NotFoundException;
 import com.codegym.blog.model.blog.Blog;
 import com.codegym.blog.repository.IBlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,13 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public Page<Blog> findAllByAuthorContaining(String author, Pageable pageable) {
-        return blogRepository.findAllByAuthorContaining(author,pageable);
+    public Page<Blog> findAllByAuthorContaining(String author, Pageable pageable) throws NotFoundException {
+        Page<Blog> blogs = blogRepository.findAllByAuthorContaining(author,pageable);
+        if (blogs!=null){
+            return blogs;
+        }else {
+            throw new NotFoundException();
+        }
     }
 
 //    @Override

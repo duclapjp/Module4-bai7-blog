@@ -1,5 +1,6 @@
 package com.codegym.blog.controller;
 
+import com.codegym.blog.exception.NotFoundException;
 import com.codegym.blog.model.blog.Blog;
 import com.codegym.blog.model.blog.BlogForm;
 import com.codegym.blog.model.category.Category;
@@ -39,8 +40,13 @@ public class BlogController {
         return categoryService.findAll();
     }
 
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView showNotFoundEx() {
+        return new ModelAndView("blog/error");
+    }
+
     @GetMapping("/view")
-    public ModelAndView view(@RequestParam("search") Optional<String> search, @PageableDefault(value = 10) Pageable pageable) {
+    public ModelAndView view(@RequestParam("search") Optional<String> search, @PageableDefault(value = 10) Pageable pageable) throws NotFoundException {
         ModelAndView modelAndView = new ModelAndView("blog/view");
         Page<Blog> blogList;
         if (search.isPresent()) {
@@ -81,7 +87,7 @@ public class BlogController {
     }
 
     @GetMapping("/{id}/view2")
-    public ModelAndView view2(@PathVariable Long id) {
+    public ModelAndView view2(@PathVariable Long id) throws NotFoundException {
         Optional<Blog> blog = blogService.findById(id);
         ModelAndView modelAndView = new ModelAndView("blog/view2");
         modelAndView.addObject("blog", blog.get());
@@ -89,7 +95,7 @@ public class BlogController {
     }
 
     @GetMapping("/edit/{id}")
-    public ModelAndView showEdit(@PathVariable Long id) {
+    public ModelAndView showEdit(@PathVariable Long id) throws NotFoundException {
         Optional<Blog> blog = blogService.findById(id);
         ModelAndView modelAndView = new ModelAndView("blog/edit");
         modelAndView.addObject("blog", blog.get());
@@ -106,7 +112,7 @@ public class BlogController {
     }
 
     @GetMapping("/delete/{id}")
-    public ModelAndView showDelete(@PathVariable Long id) {
+    public ModelAndView showDelete(@PathVariable Long id) throws NotFoundException {
         ModelAndView modelAndView = new ModelAndView("blog/delete");
         Optional<Blog> blog = blogService.findById(id);
         modelAndView.addObject("blog", blog.get());
