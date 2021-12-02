@@ -1,25 +1,33 @@
 package com.codegym.blog.controller;
 
-import com.codegym.blog.model.Blog;
-import com.codegym.blog.model.Category;
+import com.codegym.blog.model.blog.Blog;
+import com.codegym.blog.model.blog.BlogForm;
+import com.codegym.blog.model.category.Category;
 import com.codegym.blog.service.blog.IBlogService;
 import com.codegym.blog.service.category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/blog")
 public class BlogController {
+    @Value("${file-upload}")
+    private String fileUpload;
     @Autowired
     private IBlogService blogService;
 
@@ -32,12 +40,12 @@ public class BlogController {
     }
 
     @GetMapping("/view")
-    public ModelAndView view(@RequestParam("search") Optional<String> search, @PageableDefault(value = 1) Pageable pageable) {
+    public ModelAndView view(@RequestParam("search") Optional<String> search, @PageableDefault(value = 10) Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("blog/view");
         Page<Blog> blogList;
         if (search.isPresent()) {
             blogList = blogService.findAllByAuthorContaining(search.get(), pageable);
-            modelAndView.addObject("se",search);
+            modelAndView.addObject("se", search);
         } else {
             blogList = blogService.findAll(pageable);
         }
@@ -48,15 +56,23 @@ public class BlogController {
     @GetMapping("/create")
     public ModelAndView showCreate() {
         ModelAndView modelAndView = new ModelAndView("blog/create");
-        modelAndView.addObject("blog", new Blog());
+        modelAndView.addObject("blog", new BlogForm());
         return modelAndView;
     }
 
     @PostMapping("/save")
-    public ModelAndView save(@Validated @ModelAttribute Blog blog, BindingResult bindingResult) {
+    public ModelAndView save(@Validated @ModelAttribute BlogForm blogForm, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
             return new ModelAndView("blog/create");
         } else {
+            MultipartFile multipartFile = blogForm.getImage();
+            String fileName = multipartFile.getOriginalFilename();
+            try {
+                FileCopyUtils.copy(blogForm.getImage().getBytes(), new File(fileUpload + fileName));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            Blog blog = new Blog(blogForm.getTitle(), blogForm.getContent(), blogForm.getAuthor(), blogForm.getTime(), fileName, blogForm.getCategory());
             blogService.save(blog);
             ModelAndView modelAndView = new ModelAndView("blog/create");
             modelAndView.addObject("message", "dang bai thanh cong");
@@ -97,11 +113,12 @@ public class BlogController {
         return modelAndView;
     }
 
-    @PostMapping("/remove")
-    public ModelAndView delete(@RequestParam Long id) {
+    @PostMapping("/remove/{id}")
+    public ModelAndView delete(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("blog/result");
         blogService.remove(id);
         modelAndView.addObject("message", "xoa thanh cong");
         return modelAndView;
     }
+
 }

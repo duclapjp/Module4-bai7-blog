@@ -1,6 +1,6 @@
 package com.codegym.blog.controller;
 
-import com.codegym.blog.model.Category;
+import com.codegym.blog.model.category.Category;
 import com.codegym.blog.service.category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

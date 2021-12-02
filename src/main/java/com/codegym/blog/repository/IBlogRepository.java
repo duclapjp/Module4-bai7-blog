@@ -1,6 +1,6 @@
 package com.codegym.blog.repository;
 
-import com.codegym.blog.model.Blog;
+import com.codegym.blog.model.blog.Blog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
