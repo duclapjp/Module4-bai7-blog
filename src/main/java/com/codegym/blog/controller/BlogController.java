@@ -22,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -134,4 +136,16 @@ public class BlogController {
         return modelAndView;
     }
 
+    @GetMapping("/{id}/category")
+    public ModelAndView showViewCategory(@PathVariable Long id){
+        ModelAndView modelAndView = new ModelAndView("blog/view3");
+        List<Blog> blogListByCategory = new ArrayList<>();
+        for (Blog b: blogs()) {
+            if (b.getCategory().getId().equals(id)){
+                blogListByCategory.add(b);
+            }
+        }
+        modelAndView.addObject("blogsByCategory",blogListByCategory);
+        return modelAndView;
+    }
 }
