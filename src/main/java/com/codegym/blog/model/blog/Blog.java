@@ -1,10 +1,13 @@
 package com.codegym.blog.model.blog;
 
 import com.codegym.blog.model.category.Category;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.sql.Date;
+import java.time.LocalDate;
 
 
 @Entity
@@ -19,15 +22,16 @@ public class Blog {
     private String content;
     @NotEmpty(message = "tac gia khong duoc bo trong")
     private String author;
-    private String time;
+    private Date time;
     private String image;
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name="category_id")
     private Category category;
     public Blog() {
     }
 
-    public Blog(@NotEmpty String title,@NotEmpty String content,@NotEmpty String author, String time,String image,Category category) {
+    public Blog(@NotEmpty String title,@NotEmpty String content,@NotEmpty String author, Date time,String image,Category category) {
         this.title = title;
         this.content = content;
         this.author = author;
@@ -36,7 +40,7 @@ public class Blog {
         this.category = category;
     }
 
-    public Blog(Long id, String title, String content, String author, String time) {
+    public Blog(Long id, String title, String content, String author, Date time) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -44,7 +48,7 @@ public class Blog {
         this.time = time;
     }
 
-    public Blog(@NotEmpty String title,@NotEmpty String content, String author, String time, Category category) {
+    public Blog(@NotEmpty String title,@NotEmpty String content, String author, Date time, Category category) {
         this.title = title;
         this.content = content;
         this.author = author;
@@ -100,11 +104,11 @@ public class Blog {
         this.author = author;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 }

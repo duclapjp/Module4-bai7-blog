@@ -3,6 +3,7 @@ package com.codegym.blog.model.category;
 import com.codegym.blog.model.blog.Blog;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,7 +16,7 @@ public class Category {
     private Long id;
     private String name;
     @OneToMany(targetEntity = Blog.class)
-    @JsonBackReference
+    @JsonManagedReference
     private List<Blog> blogList;
 
     public Category() {

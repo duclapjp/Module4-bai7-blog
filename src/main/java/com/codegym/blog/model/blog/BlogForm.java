@@ -3,20 +3,23 @@ package com.codegym.blog.model.blog;
 import com.codegym.blog.model.category.Category;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 
 public class BlogForm {
     private Long id;
     private String title;
     private String content;
     private String author;
-    private String time;
+    private Date time;
     private MultipartFile image;
     private Category category;
 
     public BlogForm() {
     }
 
-    public BlogForm(Long id, String title, String content, String author, String time, MultipartFile image, Category category) {
+    public BlogForm(Long id, String title, String content, String author, Date time, MultipartFile image, Category category) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -26,7 +29,7 @@ public class BlogForm {
         this.category = category;
     }
 
-    public BlogForm(String title, String content, String author, String time, MultipartFile image, Category category) {
+    public BlogForm(String title, String content, String author, Date time, MultipartFile image, Category category) {
         this.title = title;
         this.content = content;
         this.author = author;
@@ -67,11 +70,11 @@ public class BlogForm {
         this.author = author;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
