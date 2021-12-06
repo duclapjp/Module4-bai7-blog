@@ -1,5 +1,6 @@
 package com.codegym.blog.controller;
 
+import com.codegym.blog.exception.NotFoundException;
 import com.codegym.blog.model.category.Category;
 import com.codegym.blog.service.category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class CategoryController {
         return modelAndView;
     }
     @GetMapping("/edit/{id}")
-    public ModelAndView showEdit(@PathVariable Long id){
+    public ModelAndView showEdit(@PathVariable Long id) throws NotFoundException {
         ModelAndView modelAndView = new ModelAndView("category/edit");
         modelAndView.addObject("category",categoryService.findById(id).get());
         return modelAndView;
@@ -47,7 +48,7 @@ public class CategoryController {
         return modelAndView;
     }
     @GetMapping("/delete/{id}")
-    public ModelAndView showDelete(@PathVariable Long id){
+    public ModelAndView showDelete(@PathVariable Long id) throws NotFoundException {
         ModelAndView modelAndView = new ModelAndView("category/delete");
         modelAndView.addObject("category",categoryService.findById(id).get());
         return modelAndView;

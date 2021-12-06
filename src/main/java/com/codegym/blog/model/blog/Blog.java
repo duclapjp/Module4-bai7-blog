@@ -1,9 +1,11 @@
 package com.codegym.blog.model.blog;
 
 import com.codegym.blog.model.category.Category;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+
 
 @Entity
 @Table(name="blog")

@@ -23,8 +23,13 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public Optional<Blog> findById(Long id) {
-        return blogRepository.findById(id);
+    public Optional<Blog> findById(Long id) throws NotFoundException {
+      Optional<Blog> blog = blogRepository.findById(id);
+      if (blog.isPresent()){
+          return blog;
+      }else {
+          throw new NotFoundException();
+      }
     }
 
     @Override
@@ -43,13 +48,8 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public Page<Blog> findAllByAuthorContaining(String author, Pageable pageable) throws NotFoundException {
-        Page<Blog> blogs = blogRepository.findAllByAuthorContaining(author,pageable);
-        if (blogs!=null){
-            return blogs;
-        }else {
-            throw new NotFoundException();
-        }
+    public Page<Blog> findAllByAuthorContaining(String author, Pageable pageable) {
+        return blogRepository.findAllByAuthorContaining(author, pageable);
     }
 
 //    @Override

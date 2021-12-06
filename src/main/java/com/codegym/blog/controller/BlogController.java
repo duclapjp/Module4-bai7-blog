@@ -35,9 +35,14 @@ public class BlogController {
     @Autowired
     private ICategoryService categoryService;
 
+    @ModelAttribute("blogs")
+    public Iterable<Blog> blogs(){
+        return blogService.findAll();
+    }
+
     @ModelAttribute("categories")
     public Iterable<Category> categories() {
-        return categoryService.findAll();
+      return categoryService.findAll();
     }
 
     @ExceptionHandler(NotFoundException.class)
@@ -50,6 +55,8 @@ public class BlogController {
         ModelAndView modelAndView = new ModelAndView("blog/view");
         Page<Blog> blogList;
         if (search.isPresent()) {
+
+
             blogList = blogService.findAllByAuthorContaining(search.get(), pageable);
             modelAndView.addObject("se", search);
         } else {
