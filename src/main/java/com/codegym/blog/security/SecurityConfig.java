@@ -17,15 +17,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/").permitAll()
+        http.authorizeRequests().antMatchers("/blog/view").permitAll()
                 .and()
-                .authorizeRequests().antMatchers("/user**").hasRole("USER")
+                .authorizeRequests().antMatchers("/blog/view","/blog/**").hasRole("USER")
                 .and()
-                .authorizeRequests().antMatchers("/admin**").hasRole("ADMIN")
+                .authorizeRequests().antMatchers("/blog**").hasRole("ADMIN")
                 .and()
-                .formLogin()
+                .formLogin().loginPage("/login")
                 .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .and().csrf().disable()
+        ;
     }
 
 }
