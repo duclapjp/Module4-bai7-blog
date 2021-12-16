@@ -1,9 +1,7 @@
 package com.codegym.blog.restcontroller;
 
-import com.codegym.blog.exception.NotFoundException;
 import com.codegym.blog.model.blog.Blog;
 import com.codegym.blog.model.category.Category;
-import com.codegym.blog.service.blog.BlogService;
 import com.codegym.blog.service.blog.IBlogService;
 import com.codegym.blog.service.category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/home")
